@@ -39,6 +39,7 @@ import './blocks/table-of-contents/block.js';
 import './blocks/restaurant-menu/block.js';
 import './blocks/restaurant-menu/menu-category/block.js';
 import './blocks/restaurant-menu/menu-category/category-item/block.js';
+import './blocks/counter-up/block.js';
 
 import './plugins/kadence-control.js';
 import './plugins/editor-width.js';

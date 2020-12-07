@@ -8042,6 +8042,47 @@ button.components-button.kt-accordion-add.is-primary svg {
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
+.wp-block[data-type="kadence/counterup"] .wp-block {
+  max-width: none !important; }
+
+.wp-block[data-type="kadence/counterup"] .kt-counter-up-container {
+  width: 100%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+      justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap; }
+
+@media (min-width: 600px) {
+  .wp-block[data-type="kadence/counterup"] .kt-counter-up-container[data-columns-xxl="1"] .kt-counter-up-content {
+    width: 100%; }
+  .wp-block[data-type="kadence/counterup"] .kt-counter-up-container[data-columns-xxl="2"] .kt-counter-up-content {
+    width: 50%; }
+  .wp-block[data-type="kadence/counterup"] .kt-counter-up-container[data-columns-xxl="3"] .kt-counter-up-content {
+    width: 33.33333%; }
+  .wp-block[data-type="kadence/counterup"] .kt-counter-up-container[data-columns-xxl="4"] .kt-counter-up-content {
+    width: 25%; }
+  .wp-block[data-type="kadence/counterup"] .kt-counter-up-container[data-columns-xxl="5"] .kt-counter-up-content {
+    width: 20%; }
+  .wp-block[data-type="kadence/counterup"] .kt-counter-up-container[data-columns-xxl="6"] .kt-counter-up-content {
+    width: 16.66667%; }
+  .wp-block[data-type="kadence/counterup"] .kt-counter-up-container[data-columns-xxl="7"] .kt-counter-up-content {
+    width: 14.28571%; }
+  .wp-block[data-type="kadence/counterup"] .kt-counter-up-container[data-columns-xxl="8"] .kt-counter-up-content {
+    width: 12.5%; } }
+/**
+ * #.# Common SCSS
+ *
+ * Can include things like variables and mixins
+ * that are used across the project.
+*/
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
 .kt-block-default-palette .components-color-palette__item {
   display: -ms-flexbox;
   display: flex;

@@ -1,0 +1,30 @@
+/**
+ * #.# Editor Styles
+ *
+ * CSS for just Backend enqueued after style.scss
+ * which makes it higher in priority.
+ */
+
+.wp-block[data-type="kadence/counterup"] {
+	.wp-block {
+		max-width: none !important;
+	}
+
+	.kt-counter-up-container {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.kt-counter-up-container {
+		// Beyond mobile viewports, we allow up to 8 columns.
+		@media (min-width: 600px) {
+			@for $i from 1 through 8 {
+				&[data-columns-xxl="#{ $i }"] .kt-counter-up-content {
+					width: (100% / #{ $i });
+				}
+			}
+		}
+	}
+}
