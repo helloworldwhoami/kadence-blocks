@@ -8,7 +8,7 @@
 import Controls from './controls';
 import Inspector from './inspector';
 import KadenceColorOutput from '../../kadence-color-output';
-import Counter from './counter';
+import { KadenceCounter } from './counter';
 
 /**
  * External dependencies
@@ -36,6 +36,9 @@ const { select, dispatch }      = wp.data;
 class KadenceCounterUp extends Component {
 	constructor() {
 		super( ...arguments );
+		this.state = {
+			startCounter: false
+		}
 	}
 
 	componentDidMount() {
@@ -55,6 +58,14 @@ class KadenceCounterUp extends Component {
 
 		this.props.setAttributes( {
 			containerBorderWidth: [...this.props.attributes.containerBorderWidth]
+		} );
+
+		this.props.setAttributes( {
+			counterFont: [...this.props.attributes.counterFont]
+		} );
+
+		this.props.setAttributes( {
+			titleFont: [...this.props.attributes.titleFont]
 		} );
 	}
 
@@ -136,7 +147,16 @@ class KadenceCounterUp extends Component {
 				{ renderCSS }
 
 				{ isSelected && <Controls {...this.props} /> }
-				{ isSelected && <Inspector {...this.props} /> }
+				{
+					isSelected &&
+					<Inspector
+						{...this.props}
+						{...this.state}
+						onChangeState={ (key, value) => {
+							this.setState({ [key]: value })
+						}}
+					/>
+				}
 
 				<div
 					className={ classnames(
@@ -157,8 +177,7 @@ class KadenceCounterUp extends Component {
 						marginBottom: ( containerMargin && '' !== containerMargin[ 2 ] ? containerMargin[ 2 ] + containerMarginUnit : undefined ),
 						marginLeft: ( containerMargin && '' !== containerMargin[ 3 ] ? containerMargin[ 3 ] + containerMarginUnit : undefined ),
 						borderStyle: 'solid'
-					} }
-				>
+					} }>
 					<div
 						className={ classnames( 'kt-counter-up-container' ) }
 						data-columns-xxl={ columns[ 0 ] }
@@ -166,16 +185,20 @@ class KadenceCounterUp extends Component {
 						data-columns-lg={ columns[ 2 ] }
 						data-columns-md={ columns[ 3 ] }
 						data-columns-sm={ columns[ 4 ] }
-						data-columns-xs={ columns[ 5 ] }
-					>
+						data-columns-xs={ columns[ 5 ] }>
+
 						{
 							counterItems.map( (counter,index) => (
 								(index < columns[ 2 ]) &&
-								<Counter
+								<KadenceCounter
 									{...this.props}
 									counter={ counter }
 									index={ index }
 									key={index}
+									enableCounter={ this.state.startCounter }
+									onEndCount={ () => {
+										this.setState({ startCounter: false })
+									} }
 								/>
 							) )
 						}

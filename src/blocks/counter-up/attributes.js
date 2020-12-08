@@ -19,16 +19,36 @@ export default {
 		"type": "Boolean",
 		"default": false
 	},
+	"startNumber": {
+		"type": "Number",
+		"default": 0
+	},
+	"prefix": {
+		"type": "String",
+		"default": 'EUR'
+	},
+	"suffix": {
+		"type": "String",
+		"default": 'LEFT'
+	},
+	"thousandSeparator": {
+		"type": "String",
+		"default": ''
+	},
+	"animationTime": {
+		"type": "Number",
+		"default": 2.75
+	},
 	counters: {
 		type: 'Array',
 		default: JSON.stringify([
 			{
 				title: __( 'Title' ),
-				count: '89.56',
+				count: '89',
 			},
 			{
 				title: __( 'Title' ),
-				count: '98.27',
+				count: '98',
 			},
 			{
 				title: '',
@@ -94,7 +114,7 @@ export default {
 	},
 	containerBorder: {
 		type: 'string',
-		default: '#eeeeee',
+		default: 'transparent',
 	},
 	containerBorderOpacity: {
 		type: 'number',
@@ -102,7 +122,7 @@ export default {
 	},
 	containerHoverBorder: {
 		type: 'string',
-		default: '#eeeeee',
+		default: 'transparent',
 	},
 	containerHoverBorderOpacity: {
 		type: 'number',
@@ -194,17 +214,17 @@ export default {
 	counterFont: {
 		type: 'array',
 		default: [ {
-			level: 2,
+			level: 4,
 			size: [ '40', '', '' ],
 			sizeType: 'px',
-			lineHeight: [ '', '', '' ],
+			lineHeight: [ 'normal', 'normal', 'normal' ],
 			lineType: 'px',
 			letterSpacing: '',
 			textTransform: 'uppercase',
 			family: "'Open Sans', sans-serif",
 			google: false,
 			style: '',
-			weight: '600',
+			weight: '400',
 			variant: '',
 			subset: '',
 			loadGoogle: true,

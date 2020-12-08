@@ -63,6 +63,8 @@ class Inspector extends Component {
 			className,
 			isSelected,
 			setAttributes,
+			onChangeState,
+			startCounter
 		} = this.props;
 
 		const {
@@ -103,6 +105,11 @@ class Inspector extends Component {
 			counterMinHeight,
 			counterHoverColor,
 			counterFont,
+
+			prefix,
+			suffix,
+			animationTime,
+			thousandSeparator
 		} = attributes;
 
 		const { containerBorderControl, mediaBorderControl, mediaPaddingControl, mediaMarginControl, containerPaddingControl, containerMarginControl } = this.state;
@@ -179,7 +186,7 @@ class Inspector extends Component {
 			<Fragment>
 				<InspectorControls>
 					<PanelBody
-						title={ __( 'Settings' ) }
+						title={ __( 'General Settings' ) }
 						initialOpen={ false }>
 
 						<div className="kt-columns-control">
@@ -255,69 +262,6 @@ class Inspector extends Component {
 								</Fragment>
 							) }
 						</div>
-
-						{/*<div className="kt-gutter-control">
-							<h2 className="kt-heading-size-title">{ __( 'Gutter', 'kadence-blocks' ) }</h2>
-							<TabPanel className="kt-size-tabs"
-								activeClass="active-tab"
-								tabs={ [
-									{
-										name: 'desk',
-										title: <Dashicon icon="desktop" />,
-										className: 'kt-desk-tab',
-									},
-									{
-										name: 'tablet',
-										title: <Dashicon icon="tablet" />,
-										className: 'kt-tablet-tab',
-									},
-									{
-										name: 'mobile',
-										title: <Dashicon icon="smartphone" />,
-										className: 'kt-mobile-tab',
-									},
-								] }>
-								{
-									( tab ) => {
-										let tabout;
-										if ( tab.name ) {
-											if ( 'mobile' === tab.name ) {
-												tabout = (
-													<RangeControl
-														value={ ( ( undefined !== gutter && undefined !== gutter[ 2 ] ) ? gutter[ 2 ] : '' ) }
-														onChange={ value => setAttributes( { gutter: [ ( ( undefined !== gutter && undefined !== gutter[ 0 ] ) ? gutter[ 0 ] : '' ), ( ( undefined !== gutter && undefined !== gutter[ 1 ] ) ? gutter[ 1 ] : '' ), value ] } ) }
-														step={ 2 }
-														min={ 0 }
-														max={ 100 }
-													/>
-												);
-											} else if ( 'tablet' === tab.name ) {
-												tabout = (
-													<RangeControl
-														value={ ( ( undefined !== gutter && undefined !== gutter[ 1 ] ) ? gutter[ 1 ] : '' ) }
-														onChange={ value => setAttributes( { gutter: [ ( ( undefined !== gutter && undefined !== gutter[ 0 ] ) ? gutter[ 0 ] : '' ), value, ( ( undefined !== gutter && undefined !== gutter[ 2 ] ) ? gutter[ 2 ] : '' ) ] } ) }
-														step={ 2 }
-														min={ 0 }
-														max={ 100 }
-													/>
-												);
-											} else {
-												tabout = (
-													<RangeControl
-														value={ ( ( undefined !== gutter && undefined !== gutter[ 0 ] ) ? gutter[ 0 ] : '' ) }
-														onChange={ value => setAttributes( { gutter: [ value, ( ( undefined !== gutter && undefined !== gutter[ 1 ] ) ? gutter[ 1 ] : '' ), ( ( undefined !== gutter && undefined !== gutter[ 2 ] ) ? gutter[ 2 ] : '' ) ] } ) }
-														step={ 2 }
-														min={ 0 }
-														max={ 100 }
-													/>
-												);
-											}
-										}
-										return <div className={ tab.className } key={ tab.className }>{ tabout }</div>;
-									}
-								}
-							</TabPanel>
-						</div>*/}
 
 						<h2 className="kt-heading-size-title">{ __( 'Content Align' ) }</h2>
 						<TabPanel className="kt-size-tabs kb-sidebar-alignment"
@@ -520,6 +464,46 @@ class Inspector extends Component {
 						/>
 					</PanelBody>
 
+					{/*<PanelBody
+						title={ __( 'Counter-Up Settings' ) }
+						initialOpen={ false }>
+						<Button
+							isSmall
+							onClick={ () => {
+								onChangeState( 'startCounter', startCounter ? false : true );
+							} }
+						>
+							{ __( 'Start' ) }
+						</Button>
+
+						<TextControl
+							label={ __( 'Prefix' ) }
+							value={ prefix }
+							onChange={ value => setAttributes( { prefix: value } ) }
+						/>
+
+						<TextControl
+							label={ __( 'Suffix' ) }
+							value={ suffix }
+							onChange={ value => setAttributes( { suffix: value } ) }
+						/>
+
+						<TextControl
+							label={ __( 'Thousand Seperator' ) }
+							value={ thousandSeparator }
+							onChange={ value => setAttributes( { thousandSeparator: value } ) }
+						/>
+
+						<KadenceRange
+							label={ __( 'Animation Time' ) }
+							value={ animationTime }
+							onChange={ value => setAttributes( { animationTime: value } ) }
+							step={ 1 }
+							min={ 0 }
+							max={ 600 }
+						/>
+					</PanelBody>*/}
+
 					<PanelBody
 						title={ __( 'Title Settings' ) }
 						initialOpen={ false }>
@@ -685,11 +669,11 @@ class Inspector extends Component {
 					<PanelBody
 						title={ __( 'Counter Settings' ) }
 						initialOpen={ false }>
-						<ToggleControl
+						{/*<ToggleControl
 							label={ __( 'Show Title' ) }
 							checked={ displayCounter }
 							onChange={ ( value ) => setAttributes( { displayCounter: value } ) }
-						/>
+						/>*/}
 
 						{ displayCounter && (
 							<Fragment>
@@ -718,16 +702,16 @@ class Inspector extends Component {
 															label={ __( 'Hover Color' ) }
 															colorValue={ ( titleHoverColor ? titleHoverColor : '' ) }
 															colorDefault={ '' }
-															onColorChange={ value => setAttributes( { titleHoverColor: value } ) }
+															onColorChange={ value => setAttributes( { counterHoverColor: value } ) }
 														/>
 													);
 												} else {
 													tabout = (
 														<AdvancedPopColorControl
-															label={ __( 'Title Color' ) }
-															colorValue={ ( titleColor ? titleColor : '' ) }
+															label={ __( 'Counter Color' ) }
+															colorValue={ ( counterColor ? counterColor : '' ) }
 															colorDefault={ '' }
-															onColorChange={ value => setAttributes( { titleColor: value } ) }
+															onColorChange={ value => setAttributes( { counterColor: value } ) }
 														/>
 													);
 												}

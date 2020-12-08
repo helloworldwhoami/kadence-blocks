@@ -7,6 +7,7 @@
  */
 import WebfontLoader from '../../fontloader';
 import KadenceColorOutput from '../../kadence-color-output';
+import CountUp from 'react-countup';
 
 /**
  * External dependencies
@@ -26,9 +27,12 @@ const { select, dispatch }    = wp.data;
 /**
  * Build the restaurant menu edit
  */
-class KadenceCounter extends Component {
+export const KadenceCounter = class KadenceCounter extends Component {
 	constructor() {
 		super( ...arguments );
+		this.state = {
+			enableCounter: false
+		}
 	}
 
 	render() {
@@ -39,7 +43,9 @@ class KadenceCounter extends Component {
 			attributes,
 			className,
 			isSelected,
-			setAttributes
+			setAttributes,
+			enableCounter,
+			onEndCount
 		} = this.props;
 
 		const {
@@ -55,19 +61,43 @@ class KadenceCounter extends Component {
 			counterMinHeight,
 			counters,
 
+			prefix,
+			suffix,
+			thousandSeparator,
+			animationTime
 		} = attributes;
 
 		const titleTagName = 'h' + titleFont[ 0 ].level;
 		const counterTagName = 'h' + counterFont[ 0 ].level;
 
+		const gconfig = {
+			google: {
+				families: [ titleFont[ 0 ].family + ( titleFont[ 0 ].variant ? ':' + titleFont[ 0 ].variant : '' ) ],
+			},
+		};
+		const config = ( titleFont[ 0 ].google ? gconfig : '' );
+		const ngconfig = {
+			google: {
+				families: [ counterFont[ 0 ].family + ( counterFont[ 0 ].variant ? ':' + counterFont[ 0 ].variant : '' ) ],
+			},
+		};
+		const nconfig = ( counterFont[ 0 ].google ? ngconfig : '' );
 
 		return (
 			<Fragment>
+				{ displayTitle && titleFont[ 0 ].google && (
+					<WebfontLoader config={ config } />
+				) }
+
+				{ counterFont[ 0 ].google && (
+					<WebfontLoader config={ nconfig } />
+				) }
+
+
 				<div
 					className={ classnames(
 						'kt-counter-up-content',
-					) }
-				>
+					) }>
 					{ 	displayTitle &&
 						<RichText
 							tagName={ titleTagName }
@@ -94,9 +124,8 @@ class KadenceCounter extends Component {
 							} }
 						/>
 					}
-
 					<RichText
-						tagName={ 'div' }
+						tagName={ counterTagName }
 						className={ classnames( className, 'kt-item-text' ) }
 						value={ counter.count }
 						onChange={ count => {
@@ -106,7 +135,7 @@ class KadenceCounter extends Component {
 							setAttributes( { counters: JSON.stringify([ ...updateCounters ]) } )
 						} }
 						placeholder={__( '89.45' )}
-						style={ {
+						style={{
 							fontWeight: counterFont[ 0 ].weight,
 							fontStyle: counterFont[ 0 ].style,
 							color: KadenceColorOutput( counterColor ),
@@ -117,13 +146,60 @@ class KadenceCounter extends Component {
 							padding: ( counterFont[ 0 ].padding ? counterFont[ 0 ].padding[ 0 ] + 'px ' + counterFont[ 0 ].padding[ 1 ] + 'px ' + counterFont[ 0 ].padding[ 2 ] + 'px ' + counterFont[ 0 ].padding[ 3 ] + 'px' : '' ),
 							margin: ( counterFont[ 0 ].margin ? counterFont[ 0 ].margin[ 0 ] + 'px ' + counterFont[ 0 ].margin[ 1 ] + 'px ' + counterFont[ 0 ].margin[ 2 ] + 'px ' + counterFont[ 0 ].margin[ 3 ] + 'px' : '' ),
 							minHeight: ( undefined !== counterMinHeight && undefined !== counterMinHeight[ 0 ] ? counterMinHeight[ 0 ] + 'px' : undefined ),
-						} }
+						}}
 					/>
-
 				</div>
 			</Fragment>
 		)
 	}
 }
 
-export default KadenceCounter;
+export const KadenceCounterSave = ( { attributes, counter } ) => {
+	const {
+		displayTitle,
+		title,
+		titleFont,
+		titleMinHeight,
+		titleColor,
+		titleHoverColor,
+
+		counterColor,
+		counterFont,
+		counterMinHeight,
+		counters,
+
+		prefix,
+		suffix,
+		thousandSeparator,
+		animationTime
+	} = attributes
+
+	const titleTagName = 'h' + titleFont[ 0 ].level;
+	const counterTagName = 'h' + counterFont[ 0 ].level;
+
+	return (
+		<Fragment>
+			<div
+				className={ classnames(
+					'kt-counter-up-content',
+				) }>
+				{ 	displayTitle &&
+					<RichText.Content
+						tagName={ titleTagName }
+						className={ classnames( 'kt-counter-title' ) }
+						value={ counter.title }
+					/>
+				}
+				<RichText.Content
+					tagName={ counterTagName }
+					className={ classnames('kt-counter-number kadence-counter-up-element' ) }
+					value={ counter.count }
+					data-time="1000"
+					data-delay="16"
+				/>
+			</div>
+		</Fragment>
+	)
+}
+
+
